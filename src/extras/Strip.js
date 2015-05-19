@@ -223,11 +223,12 @@ Strip.prototype.renderCanvas = function (renderer)
         return;
     }
 
-    var context = renderer.context;
+    var context = renderSession.context;
+	context.globalAlpha = this.worldAlpha;
 
     var transform = this.worldTransform;
 
-    if (renderer.roundPixels)
+    if (renderSession.roundPixels)
     {
         context.setTransform(transform.a, transform.b, transform.c, transform.d, transform.tx | 0, transform.ty | 0);
     }
@@ -236,7 +237,7 @@ Strip.prototype.renderCanvas = function (renderer)
         context.setTransform(transform.a, transform.b, transform.c, transform.d, transform.tx, transform.ty);
     }
 
-    if (this.drawMode === Strip.DrawModes.TRIANGLE_STRIP)
+    if (this.drawMode === PIXI.Strip.DrawModes.TRIANGLE_STRIP)
     {
         this._renderCanvasTriangleStrip(context);
     }
